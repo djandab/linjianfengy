@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1" />
+	</head>
+	<body>
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				position: absolute;
+				width: 200px;
+				height: 0px;
+				top: 260px;
+				left: 55px;
+
+			}
+			.tiao{
+				position: absolute;
+				width: 100%;
+				border-radius: 10px;
+				height: 10px;
+				background: #CCCCCC;
+			}
+			.dian{
+				width: 15px;
+				height: 15px;
+				top: -2px;
+				border-radius: 50%;
+				background: black;
+				position: absolute;
+				cursor: pointer;
+				z-index: 2;
+			}
+			.yanse{
+				background: greenyellow;
+				border-radius: 10px;
+				z-index: 1;
+				width: 0px;
+				height: 10px;
+				position: absolute;
+			}
+			.bigbox{
+				width: 300px;
+				height: 300px;
+				position: fixed;
+				left: 50%;
+				top: 50%;
+				margin-left: -150px;
+				margin-top: -150px;
+				border-radius: 20px;
+				background: url(img/023b5bb5c9ea15cee0bcad47bc003af33a87b22a.jpg)no-repeat;
+				background-size: 100%;
+			}
+			#dian{
+    			position: absolute;
+   		 		width: 50px;
+    			height: 50px;
+    			border-radius: 50%;
+    			background: white;
+    			top: 189px;
+    			left: 127px;
+			}
+			#dian #one{
+				margin-top: 10px;
+    			margin-left: 12px;
+    	
+			}
+			
+			#two{
+				margin-top: 10px;
+    			margin-left: 10px;
+			
+			 	display: none;
+			}
+			.zhe{
+				width: 100%;
+				height: 100%;
+				background: rgba(48,48,48,.5);
+				border-radius: 20px;
+			}
+			
+			
+		</style>
+		<div class="bigbox">
+			<div class="zhe">
+		<audio id="music" preload="auto" style="display: none;">
+			<source src="mp3/杨宗纬 - 一次就好.mp3"></source>
+		</audio>
+		<div id="dian">
+			<svg id="two" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" t="1544709837145" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" p-id="848" width="30" height="30"><defs><style type="text/css"/></defs><path d="M349.866667 149.333333h-14.933334c-21.333333 0-36.266667 14.933333-36.266666 34.133334v654.933333c0 19.2 14.933333 34.133333 34.133333 34.133333h14.933333c19.2 0 34.133333-14.933333 34.133334-34.133333V183.466667c2.133333-19.2-12.8-34.133333-32-34.133334z m341.333333 0h-14.933333c-21.333333 0-36.266667 14.933333-36.266667 34.133334v654.933333c0 19.2 14.933333 34.133333 34.133333 34.133333h14.933334c19.2 0 34.133333-14.933333 34.133333-34.133333V183.466667c2.133333-19.2-12.8-34.133333-32-34.133334z" p-id="849"/></svg>
+			<svg id="one" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" t="1544709833612" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" p-id="732" width="30" height="30"><defs><style type="text/css"/></defs><path d="M780.8 475.733333L285.866667 168.533333c-27.733333-17.066667-64 4.266667-64 36.266667v614.4c0 32 36.266667 53.333333 64 36.266667l492.8-307.2c29.866667-14.933333 29.866667-57.6 2.133333-72.533334z" p-id="733"/></svg>
+		</div>
+		<div class="box">
+			<div class="tiao"></div>
+			<div class="dian"></div>
+			<div class="yanse"></div>
+		</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		var dian2 = document.getElementById('dian');
+		var music = document.getElementById('music');
+		var one =document.getElementById('one');
+		var two = document.getElementById('two');
+		var box = document.getElementsByClassName('box')[0];
+		one.onclick = function(){
+		var tiao = document.getElementsByClassName('tiao')[0];
+		var dian = document.getElementsByClassName('dian')[0];
+		var yanse = document.getElementsByClassName("yanse")[0];
+		var left;
+		var bofang;
+		var length = music.duration;
+	
+			music.play()
+			one.style.display = "none";
+			two.style.display = "block";
+			var time = setInterval(function(){
+				var dianweiyi = parseInt(music.currentTime);	
+				var weiyi = parseInt(dianweiyi/length*200) ;
+				dian.style.left = weiyi + 'px'
+				yanse.style.width = weiyi + 'px'
+				if(dianweiyi >= length){
+					clearInterval(time);
+				}
+			
+			},1000);
+		//dian.offsetLeft/tiao.offsetWitch = bofang/music.duration
+		
+		
+         tiao.onclick=function(ev){                
+            var _event=ev;
+			dian.style.left = _event.offsetX + 'px';
+			yanse.style.width = _event.offsetX + 'px';
+			bofang = parseInt((dian.offsetLeft/tiao.offsetWidth)*music.duration);
+			music.currentTime = bofang;
+			
+			
+        }
+		yanse.onclick = function(ev){
+			var _event=ev;
+			dian.style.left = _event.offsetX + 'px';
+			yanse.style.width = _event.offsetX + 'px';
+			bofang = parseInt((dian.offsetLeft/tiao.offsetWidth)*music.duration);
+			music.currentTime = bofang;
+		}
+		
+			
+		
+
+//		dian.onmousedown = function(ev){
+//			var _event=ev;
+//			box.style.height = 50 + 'px';
+//			var dianleft =_event.clientX - this.offsetLeft;
+//			document.onmousemove = function(ev){
+//				
+//				 var _event=ev;				
+//				 left = _event.clientX - dianleft;
+//				dian.style.left = left  + 'px';
+//				yanse.style.width = left + 'px';
+//				if(dian.offsetLeft<0){
+//					dian.style.left = 0  + 'px';
+//					yanse.style.width = 0 + 'px';
+//				}else if(dian.offsetLeft>tiao.offsetWidth){
+//					dian.style.left = tiao.offsetWidth +'px';
+//					yanse.style.width = tiao.offsetWidth + 'px';
+//				}
+//				
+//				window.getSelection ? window.getSelection().removeAllRanges():document.selection.empty();
+//			}
+//		}
+//		
+//		box.onmouseup = function(){
+//			box.style.height = 0 + 'px';
+//			bofang = parseInt((dian.offsetLeft/tiao.offsetWidth)*music.duration);
+//			music.currentTime = bofang;
+////			dian.onmousedown = null;
+//			document.onmousemove = null;
+//		}
+
+		var boxLeft;
+		dian.ontouchstart = function(e){
+			var x = e.touches[0];
+			var dianLeft = dian.offsetLeft;
+			 boxLeft = x.pageX - dianLeft;
+			 
+		}
+		dian.ontouchmove = function(e){
+			var x = e.touches[0];
+			var pagex = x.pageX;
+//			console.log(pagex);
+//			console.log(pagey);
+	
+			dian.style.left = pagex - boxLeft + 'px';
+			yanse.style.width = pagex - boxLeft + 'px';
+			if(dian.offsetLeft <= 0){
+				dian.style.left = 0 + 'px';
+				yanse.style.width = 0 + 'px';
+			}
+			if(dian.offsetLeft > (tiao.offsetWidth-15)){
+				dian.style.left = tiao.offsetWidth-15 + 'px';
+				yanse.style.width = tiao.offsetWidth-15 + 'px';
+			}
+	
+			bofang = parseInt((dian.offsetLeft/tiao.offsetWidth)*music.duration);
+//			box.style.top =  pagey - dianTop + "px";
+			music.currentTime = bofang;
+		}
+//
+		}
+		two.onclick = function (){
+			music.pause();
+			one.style.display = "block";
+			two.style.display = "none";
+		}
+	</script>
+</html>
